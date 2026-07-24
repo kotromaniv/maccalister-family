@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maccalister Family — Кабінет</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="crest" data-crest></div>
+      <span>MACCALISTER FAMILY</span>
+    </div>
+    <div class="topbar-user">
+      <span id="userLoginLabel">—</span>
+      <span class="tag-role" id="userRoleLabel">member</span>
+      <a href="admin.html" id="adminLink" style="display:none;">Активні користувачі</a>
+      <button class="btn-danger" id="logoutBtn">Вийти</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="eyebrow">Особистий кабінет</div>
+    <h1 style="font-size: 26px;">Вітаємо в родині, <span id="userNameHero">—</span></h1>
+
+    <div class="crest-divider">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/></svg>
+      статус сесії
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/></svg>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="eyebrow">Ваша сесія</div>
+        <table style="margin-top: 14px;">
+          <tbody>
+            <tr><td style="color:var(--ink-muted);width:40%;">Логін</td><td id="infoLogin">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Роль</td><td id="infoRole">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Вхід виконано</td><td id="infoLoginTime">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Остання активність</td><td id="infoLastActivity">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Пристрій та мережа</div>
+        <table style="margin-top: 14px;">
+          <tbody>
+            <tr><td style="color:var(--ink-muted);width:40%;">IP</td><td id="infoIp">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Браузер</td><td id="infoBrowser">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Пристрій</td><td id="infoDevice">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Session Token</td><td style="font-family: var(--font-mono); font-size: 12px;" id="infoToken">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка: сесію завершив адміністратор -->
+<div class="modal-overlay" id="kickModal">
+  <div class="panel modal-box">
+    <h2>Увага!</h2>
+    <p style="color: var(--ink-cream);">Вас було вигнано із системи адміністратором.</p>
+    <p style="color: var(--ink-muted); font-size: 13px;">Для продовження роботи необхідно повторно авторизуватися.</p>
+    <button class="btn" id="kickOkBtn" style="margin-top: 16px;">Зрозуміло</button>
+  </div>
+</div>
+
+<!-- Модалка: сесія завершилась через бездіяльність -->
+<div class="modal-overlay" id="idleModal">
+  <div class="panel modal-box">
+    <h2 style="color: var(--state-warn);">Сесія завершена</h2>
+    <p style="color: var(--ink-cream);">Ви були неактивні протягом 30 хвилин.</p>
+    <p style="color: var(--ink-muted); font-size: 13px;">Увійдіть повторно, щоб продовжити роботу.</p>
+    <button class="btn" id="idleOkBtn" style="margin-top: 16px;">Увійти знову</button>
+  </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

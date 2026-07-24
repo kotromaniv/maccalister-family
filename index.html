@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maccalister Family — Вхід</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="screen">
+  <div class="panel card-sm">
+
+    <div class="crest" data-crest></div>
+    <div style="text-align:center; margin-bottom: 28px;">
+      <div class="eyebrow">Родинний доступ</div>
+      <h1 style="font-size: 22px; margin-top: 6px;">MACCALISTER FAMILY</h1>
+    </div>
+
+    <!-- ЕКРАН 1: форма логіна/пароля -->
+    <form id="loginForm">
+      <div class="field">
+        <label for="login">Логін</label>
+        <input type="text" id="login" name="login" autocomplete="username" placeholder="Ваш логін" required>
+      </div>
+      <div class="field">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn" id="loginBtn">Увійти</button>
+      <div class="error-text" id="loginError"></div>
+    </form>
+
+    <!-- ЕКРАН 2: очікування підтвердження в Telegram -->
+    <div class="waiting" id="waitingScreen" style="display:none;">
+      <div class="spinner"></div>
+      <p style="color: var(--ink-cream); font-weight: 600;">
+        <span class="pulse-dot"></span>&nbsp; Очікуємо підтвердження входу через Telegram...
+      </p>
+      <p style="color: var(--ink-muted); font-size: 13px; margin-top: 8px;">
+        Відкрийте бота @<span id="botHint">ваш_бот</span> і натисніть «Дозволити» або «Заборонити».
+      </p>
+      <button class="btn btn-ghost" id="cancelWaitBtn" style="margin-top: 20px;">Скасувати</button>
+    </div>
+
+    <!-- ЕКРАН 3: відмова -->
+    <div class="waiting" id="deniedScreen" style="display:none;">
+      <h2 style="color: var(--state-danger); font-size: 18px;">Вхід відхилено</h2>
+      <p style="color: var(--ink-muted); font-size: 14px;">Вхід було відхилено власником акаунта.</p>
+      <button class="btn" id="backToLoginBtn" style="margin-top: 16px;">Спробувати ще раз</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>
