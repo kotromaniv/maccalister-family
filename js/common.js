@@ -8,7 +8,7 @@
    Береться після деплою (Deploy -> New deployment -> Web app) —
    виглядає як https://script.google.com/macros/s/XXXXXXX/exec
    ------------------------------------------------------------------------- */
-const API_URL = "https://script.google.com/macros/s/AKfycbzt6MCHCGRvRtgb9BYPzoqAM0rqRr29xgBp_5J__6KvpLtBi_vWLiXaH13l2cLoY-hE0Q/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwE5mH9QvkeMUx_zWknK4-pasTx9Qf9bo8VFLO6oOrAPgWKTd371KxGFW5ENW73Vj_luw/exec";
 
 /* -------------------------------------------------------------------------
    2. SVG-герб родини (спрощена версія логотипу: щит + M + корона + лаври)
