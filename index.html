@@ -3,59 +3,543 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maccalister Family — Вхід</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Maccalister Family</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<style>
+/* ==========================================================================
+   MACCALISTER FAMILY — DESIGN SYSTEM (все в одному файлі)
+   ========================================================================== */
+:root {
+  --bg-void:        #0a0509;
+  --bg-panel:       #150a12;
+  --bg-panel-hi:    #1f0f1c;
+  --line-hair:      #3a1830;
+  --pink-hot:       #e6197e;
+  --pink-deep:      #8c1568;
+  --pink-violet:    #5a1a63;
+  --pink-glow:      #ff5fb0;
+  --ink-cream:      #f3e9ee;
+  --ink-muted:      #a98a9a;
+  --ink-faint:      #6b4f5e;
+  --state-ok:       #29c37b;
+  --state-warn:     #e6a417;
+  --state-danger:   #e63946;
+  --font-display: "Cinzel", "Playfair Display", Georgia, serif;
+  --font-body: "Manrope", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --shadow-glow: 0 0 40px rgba(230, 25, 126, 0.25);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg-void); color: var(--ink-cream); font-family: var(--font-body); min-height: 100vh; }
+body {
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(230, 25, 126, 0.16), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(90, 26, 99, 0.18), transparent 50%);
+  background-attachment: fixed;
+}
+::selection { background: var(--pink-hot); color: #fff; }
+a { color: var(--pink-glow); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.02em; margin: 0 0 0.4em; }
+.eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink-glow); opacity: 0.85; }
+.screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.crest { width: 92px; height: 92px; margin: 0 auto 18px; filter: drop-shadow(0 0 18px rgba(230, 25, 126, 0.45)); }
+.crest-divider { display: flex; align-items: center; gap: 14px; margin: 28px 0; color: var(--ink-faint); }
+.crest-divider::before, .crest-divider::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--line-hair), transparent); }
+.crest-divider svg { width: 16px; height: 16px; opacity: 0.7; }
+.panel { background: linear-gradient(180deg, var(--bg-panel), var(--bg-panel-hi)); border: 1px solid var(--line-hair); border-radius: var(--radius-md); padding: 36px; box-shadow: var(--shadow-glow); }
+.card-sm { max-width: 420px; width: 100%; }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+.field input { width: 100%; background: var(--bg-void); border: 1px solid var(--line-hair); border-radius: var(--radius-sm); padding: 12px 14px; color: var(--ink-cream); font-family: var(--font-body); font-size: 15px; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+.field input:focus { border-color: var(--pink-hot); box-shadow: 0 0 0 3px rgba(230, 25, 126, 0.18); }
+.field input::placeholder { color: var(--ink-faint); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px 20px; border-radius: var(--radius-sm); border: none; font-family: var(--font-body); font-weight: 700; font-size: 14px; letter-spacing: 0.03em; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease; background: linear-gradient(135deg, var(--pink-hot), var(--pink-deep)); color: #fff; }
+.btn:hover { box-shadow: 0 6px 24px rgba(230, 25, 126, 0.4); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-ghost { background: transparent; border: 1px solid var(--line-hair); color: var(--ink-cream); }
+.btn-ghost:hover { border-color: var(--pink-hot); box-shadow: none; }
+.btn-danger { background: transparent; border: 1px solid var(--state-danger); color: var(--state-danger); width: auto; padding: 8px 14px; font-size: 12px; }
+.btn-danger:hover { background: rgba(230, 57, 70, 0.12); box-shadow: none; }
+.error-text { color: var(--state-danger); font-size: 13px; margin-top: 10px; min-height: 18px; }
+.waiting { text-align: center; }
+.spinner { width: 46px; height: 46px; margin: 22px auto; border-radius: 50%; border: 3px solid var(--line-hair); border-top-color: var(--pink-hot); animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.pulse-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--pink-hot); animation: pulse 1.6s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(230,25,126,0.5); } 70% { box-shadow: 0 0 0 10px rgba(230,25,126,0); } 100% { box-shadow: 0 0 0 0 rgba(230,25,126,0); } }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid var(--line-hair); background: rgba(10, 5, 9, 0.85); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 10; }
+.topbar-brand { display: flex; align-items: center; gap: 12px; }
+.topbar-brand .crest { width: 34px; height: 34px; margin: 0; }
+.topbar-brand span { font-family: var(--font-display); font-size: 16px; letter-spacing: 0.05em; }
+.topbar-user { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--ink-muted); }
+.main { flex: 1; padding: 40px 32px; max-width: 1180px; margin: 0 auto; width: 100%; }
+.table-wrap { border: 1px solid var(--line-hair); border-radius: var(--radius-md); overflow: hidden; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+thead th { text-align: left; padding: 12px 16px; background: var(--bg-panel-hi); color: var(--ink-muted); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid var(--line-hair); }
+tbody td { padding: 12px 16px; border-bottom: 1px solid var(--line-hair); color: var(--ink-cream); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: rgba(230, 25, 126, 0.05); }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid var(--line-hair); }
+.status-online { color: var(--state-ok); border-color: rgba(41,195,123,0.4); }
+.status-offline { color: var(--ink-faint); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(5, 2, 4, 0.82); display: none; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(4px); }
+.modal-overlay.open { display: flex; }
+.modal-box { max-width: 380px; text-align: center; }
+.modal-box h2 { color: var(--state-danger); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } .main { padding: 24px 16px; } .topbar { padding: 14px 16px; } }
+.tag-role { font-family: var(--font-mono); font-size: 11px; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--pink-deep); color: var(--pink-glow); }
+.hidden { display: none !important; }
+</style>
 </head>
 <body>
 
-<div class="screen">
+<!-- ==================== VIEW: LOGIN ==================== -->
+<div class="screen" id="view-login">
   <div class="panel card-sm">
-
     <div class="crest" data-crest></div>
     <div style="text-align:center; margin-bottom: 28px;">
       <div class="eyebrow">Родинний доступ</div>
       <h1 style="font-size: 22px; margin-top: 6px;">MACCALISTER FAMILY</h1>
     </div>
 
-    <!-- ЕКРАН 1: форма логіна/пароля -->
     <form id="loginForm">
       <div class="field">
         <label for="login">Логін</label>
-        <input type="text" id="login" name="login" autocomplete="username" placeholder="Ваш логін" required>
+        <input type="text" id="login" autocomplete="username" placeholder="Ваш логін" required>
       </div>
       <div class="field">
         <label for="password">Пароль</label>
-        <input type="password" id="password" name="password" autocomplete="current-password" placeholder="••••••••" required>
+        <input type="password" id="password" autocomplete="current-password" placeholder="••••••••" required>
       </div>
       <button type="submit" class="btn" id="loginBtn">Увійти</button>
       <div class="error-text" id="loginError"></div>
     </form>
 
-    <!-- ЕКРАН 2: очікування підтвердження в Telegram -->
-    <div class="waiting" id="waitingScreen" style="display:none;">
+    <div class="waiting hidden" id="waitingScreen">
       <div class="spinner"></div>
       <p style="color: var(--ink-cream); font-weight: 600;">
         <span class="pulse-dot"></span>&nbsp; Очікуємо підтвердження входу через Telegram...
       </p>
-      <p style="color: var(--ink-muted); font-size: 13px; margin-top: 8px;">
-        Відкрийте бота @<span id="botHint">ваш_бот</span> і натисніть «Дозволити» або «Заборонити».
-      </p>
+      <p style="color: var(--ink-muted); font-size: 13px; margin-top: 8px;">Перевірте Telegram і натисніть «Дозволити» або «Заборонити».</p>
       <button class="btn btn-ghost" id="cancelWaitBtn" style="margin-top: 20px;">Скасувати</button>
     </div>
 
-    <!-- ЕКРАН 3: відмова -->
-    <div class="waiting" id="deniedScreen" style="display:none;">
+    <div class="waiting hidden" id="deniedScreen">
       <h2 style="color: var(--state-danger); font-size: 18px;">Вхід відхилено</h2>
       <p style="color: var(--ink-muted); font-size: 14px;">Вхід було відхилено власником акаунта.</p>
       <button class="btn" id="backToLoginBtn" style="margin-top: 16px;">Спробувати ще раз</button>
     </div>
-
   </div>
 </div>
 
-<script src="js/common.js"></script>
-<script src="js/auth.js"></script>
+<!-- ==================== VIEW: DASHBOARD + ADMIN (спільна оболонка) ==================== -->
+<div class="app-shell hidden" id="view-app">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="crest" data-crest></div>
+      <span>MACCALISTER FAMILY</span>
+    </div>
+    <div class="topbar-user">
+      <span id="userLoginLabel">—</span>
+      <span class="tag-role" id="userRoleLabel">member</span>
+      <a href="#" id="navToAdmin" class="hidden">Активні користувачі</a>
+      <a href="#" id="navToDashboard" class="hidden">← Кабінет</a>
+      <button class="btn-danger" id="logoutBtn">Вийти</button>
+    </div>
+  </div>
+
+  <!-- ---- DASHBOARD ---- -->
+  <div class="main" id="section-dashboard">
+    <div class="eyebrow">Особистий кабінет</div>
+    <h1 style="font-size: 26px;">Вітаємо в родині, <span id="userNameHero">—</span></h1>
+
+    <div class="crest-divider">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/></svg>
+      статус сесії
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/></svg>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="eyebrow">Ваша сесія</div>
+        <table style="margin-top: 14px;">
+          <tbody>
+            <tr><td style="color:var(--ink-muted);width:40%;">Логін</td><td id="infoLogin">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Роль</td><td id="infoRole">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Вхід виконано</td><td id="infoLoginTime">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Остання активність</td><td id="infoLastActivity">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Пристрій та мережа</div>
+        <table style="margin-top: 14px;">
+          <tbody>
+            <tr><td style="color:var(--ink-muted);width:40%;">IP</td><td id="infoIp">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Браузер</td><td id="infoBrowser">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Пристрій</td><td id="infoDevice">—</td></tr>
+            <tr><td style="color:var(--ink-muted);">Session Token</td><td style="font-family: var(--font-mono); font-size: 12px;" id="infoToken">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- ADMIN ---- -->
+  <div class="main hidden" id="section-admin">
+    <div class="eyebrow">Контроль доступу</div>
+    <h1 style="font-size: 24px;">Активні сесії</h1>
+    <p style="color: var(--ink-muted); font-size: 14px;">Оновлюється автоматично кожні 5 секунд.</p>
+
+    <div class="table-wrap" style="margin-top: 20px;">
+      <table>
+        <thead><tr><th>Логін</th><th>Роль</th><th>IP</th><th>Браузер</th><th>ОС / Пристрій</th><th>Вхід</th><th>Остання активність</th><th>Статус</th><th></th></tr></thead>
+        <tbody id="sessionsBody"><tr><td colspan="9" style="color: var(--ink-faint);">Завантаження...</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="crest-divider">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/></svg>
+      журнал подій
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/></svg>
+    </div>
+
+    <h2 style="font-size: 18px;">Останні події</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Дата</th><th>Час</th><th>Логін</th><th>Подія</th><th>IP</th><th>Браузер</th></tr></thead>
+        <tbody id="logsBody"><tr><td colspan="6" style="color: var(--ink-faint);">Завантаження...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+<div class="modal-overlay" id="kickModal">
+  <div class="panel modal-box">
+    <h2>Увага!</h2>
+    <p style="color: var(--ink-cream);">Вас було вигнано із системи адміністратором.</p>
+    <p style="color: var(--ink-muted); font-size: 13px;">Для продовження роботи необхідно повторно авторизуватися.</p>
+    <button class="btn" id="kickOkBtn" style="margin-top: 16px;">Зрозуміло</button>
+  </div>
+</div>
+<div class="modal-overlay" id="idleModal">
+  <div class="panel modal-box">
+    <h2 style="color: var(--state-warn);">Сесія завершена</h2>
+    <p style="color: var(--ink-cream);">Ви були неактивні протягом 30 хвилин.</p>
+    <p style="color: var(--ink-muted); font-size: 13px;">Увійдіть повторно, щоб продовжити роботу.</p>
+    <button class="btn" id="idleOkBtn" style="margin-top: 16px;">Увійти знову</button>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   MACCALISTER FAMILY — APP LOGIC (весь JS в одному файлі)
+   ========================================================================== */
+
+/* 1. НАЛАШТУВАННЯ — встав сюди URL свого Apps Script Web App */
+const API_URL = "https://script.google.com/macros/s/AKfycbybbdCvvdkFMviIGYI0uiDqrp4EAa_yApvhYlkgu1HldzSVA_rWt8hXfIJlrmaJVcYpJg/exec";
+
+/* 2. Герб */
+const CREST_SVG = `
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e6197e"/><stop offset="100%" stop-color="#5a1a63"/>
+  </linearGradient></defs>
+  <path d="M60 40 L140 40 L140 110 Q140 150 100 170 Q60 150 60 110 Z" fill="url(#shieldGrad)" stroke="#ff5fb0" stroke-width="3"/>
+  <path d="M100 10 L106 24 L120 16 L114 32 L128 30 L116 40 L100 34 L84 40 L72 30 L86 32 L80 16 L94 24 Z" fill="#e6197e"/>
+  <text x="100" y="105" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="52" fill="#f3e9ee" stroke="#ff5fb0" stroke-width="1">M</text>
+</svg>`;
+document.querySelectorAll("[data-crest]").forEach((el) => (el.innerHTML = CREST_SVG));
+
+/* 3. API-обгортка (text/plain, щоб уникнути CORS preflight) */
+async function callApi(action, payload = {}) {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({ action, ...payload }),
+  });
+  if (!res.ok) throw new Error("Мережева помилка: " + res.status);
+  const data = await res.json();
+  if (data.error) throw new Error(data.error);
+  return data;
+}
+
+/* 4. Сесія в localStorage */
+const Session = {
+  save(token, user) { localStorage.setItem("mf_token", token); localStorage.setItem("mf_user", JSON.stringify(user)); },
+  token() { return localStorage.getItem("mf_token"); },
+  user() { try { return JSON.parse(localStorage.getItem("mf_user")); } catch (e) { return null; } },
+  clear() { localStorage.removeItem("mf_token"); localStorage.removeItem("mf_user"); },
+};
+
+/* 5. Дані клієнта */
+function detectClientInfo() {
+  const ua = navigator.userAgent;
+  let browser = "Невідомо";
+  if (ua.includes("Edg/")) browser = "Edge";
+  else if (ua.includes("Chrome/") && !ua.includes("OPR")) browser = "Chrome";
+  else if (ua.includes("Firefox/")) browser = "Firefox";
+  else if (ua.includes("Safari/") && !ua.includes("Chrome")) browser = "Safari";
+  else if (ua.includes("OPR")) browser = "Opera";
+  let device = "Десктоп";
+  if (/Android/i.test(ua)) device = "Android";
+  else if (/iPhone|iPad|iPod/i.test(ua)) device = "iOS";
+  else if (/Mobi/i.test(ua)) device = "Мобільний";
+  return { browser, device };
+}
+async function getPublicIp() {
+  try { const res = await fetch("https://api.ipify.org?format=json"); return (await res.json()).ip || "невідомо"; }
+  catch (e) { return "невідомо"; }
+}
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/* 6. Перемикання екранів */
+function showView(name) {
+  document.getElementById("view-login").classList.toggle("hidden", name !== "login");
+  document.getElementById("view-app").classList.toggle("hidden", name === "login");
+  document.getElementById("section-dashboard").classList.toggle("hidden", name !== "dashboard");
+  document.getElementById("section-admin").classList.toggle("hidden", name !== "admin");
+}
+
+/* ==========================================================================
+   LOGIN
+   ========================================================================== */
+const loginForm = document.getElementById("loginForm");
+const loginBtn = document.getElementById("loginBtn");
+const loginError = document.getElementById("loginError");
+const waitingScreen = document.getElementById("waitingScreen");
+const deniedScreen = document.getElementById("deniedScreen");
+let pollTimer = null, currentRequestId = null;
+
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  loginError.textContent = "";
+  loginBtn.disabled = true; loginBtn.textContent = "Перевірка...";
+
+  const login = document.getElementById("login").value.trim();
+  const password = document.getElementById("password").value;
+  const { browser, device } = detectClientInfo();
+  const ip = await getPublicIp();
+
+  try {
+    const passwordHash = await sha256Hex(password);
+    const res = await callApi("login", { login, passwordHash, browser, device, ip });
+    currentRequestId = res.requestId;
+    loginForm.classList.add("hidden");
+    waitingScreen.classList.remove("hidden");
+    startPolling();
+  } catch (err) {
+    loginError.textContent = err.message || "Невірний логін або пароль";
+  } finally {
+    loginBtn.disabled = false; loginBtn.textContent = "Увійти";
+  }
+});
+
+function startPolling() {
+  pollTimer = setInterval(async () => {
+    try {
+      const res = await callApi("checkStatus", { requestId: currentRequestId });
+      if (res.status === "Approved") {
+        clearInterval(pollTimer);
+        Session.save(res.token, res.user);
+        enterApp();
+      } else if (res.status === "Denied") {
+        clearInterval(pollTimer);
+        waitingScreen.classList.add("hidden");
+        deniedScreen.classList.remove("hidden");
+      }
+    } catch (err) { console.warn("polling error", err); }
+  }, 1000);
+}
+
+document.getElementById("cancelWaitBtn").addEventListener("click", () => {
+  clearInterval(pollTimer);
+  waitingScreen.classList.add("hidden");
+  loginForm.classList.remove("hidden");
+  loginForm.reset();
+});
+document.getElementById("backToLoginBtn").addEventListener("click", () => {
+  deniedScreen.classList.add("hidden");
+  loginForm.classList.remove("hidden");
+  loginForm.reset();
+});
+
+/* ==========================================================================
+   DASHBOARD (heartbeat, автовихід)
+   ========================================================================== */
+const IDLE_LIMIT_MS = 30 * 60 * 1000;
+const HEARTBEAT_MS = 30 * 1000;
+let lastUserActivity = Date.now();
+let heartbeatTimer = null, idleCheckTimer = null;
+
+["mousemove", "keydown", "click", "scroll", "touchstart"].forEach((evt) =>
+  window.addEventListener(evt, () => (lastUserActivity = Date.now()), { passive: true })
+);
+
+function enterApp() {
+  const user = Session.user();
+  if (!user) { showView("login"); return; }
+
+  document.getElementById("userLoginLabel").textContent = user.login;
+  document.getElementById("userRoleLabel").textContent = user.role;
+  document.getElementById("userNameHero").textContent = user.login;
+  document.getElementById("infoLogin").textContent = user.login;
+  document.getElementById("infoRole").textContent = user.role;
+  document.getElementById("infoLoginTime").textContent = user.loginTime || "—";
+  document.getElementById("infoIp").textContent = user.ip || "—";
+  document.getElementById("infoBrowser").textContent = user.browser || "—";
+  document.getElementById("infoDevice").textContent = user.device || "—";
+  document.getElementById("infoToken").textContent = maskToken(Session.token());
+
+  if (user.role === "admin") {
+    document.getElementById("navToAdmin").classList.remove("hidden");
+  }
+
+  showView("dashboard");
+  sendHeartbeat();
+  clearInterval(heartbeatTimer); clearInterval(idleCheckTimer);
+  heartbeatTimer = setInterval(sendHeartbeat, HEARTBEAT_MS);
+  idleCheckTimer = setInterval(checkIdle, 5000);
+}
+
+function maskToken(t) { return t ? t.slice(0, 8) + "…" + t.slice(-6) : "—"; }
+
+async function sendHeartbeat() {
+  try {
+    const res = await callApi("heartbeat", { token: Session.token() });
+    if (res.lastActivity) document.getElementById("infoLastActivity").textContent = res.lastActivity;
+  } catch (err) {
+    if (String(err.message).includes("SESSION_KILLED")) showKickModal();
+    else if (String(err.message).includes("SESSION_EXPIRED")) showIdleModal();
+  }
+}
+function checkIdle() {
+  if (Date.now() - lastUserActivity > IDLE_LIMIT_MS) {
+    clearInterval(heartbeatTimer); clearInterval(idleCheckTimer);
+    callApi("logout", { token: Session.token() }).catch(() => {});
+    showIdleModal();
+  }
+}
+function showKickModal() {
+  clearInterval(heartbeatTimer); clearInterval(idleCheckTimer);
+  clearInterval(adminSessionsTimer); clearInterval(adminLogsTimer);
+  Session.clear();
+  document.getElementById("kickModal").classList.add("open");
+}
+document.getElementById("kickOkBtn").addEventListener("click", () => location.reload());
+function showIdleModal() {
+  clearInterval(adminSessionsTimer); clearInterval(adminLogsTimer);
+  Session.clear();
+  document.getElementById("idleModal").classList.add("open");
+}
+document.getElementById("idleOkBtn").addEventListener("click", () => location.reload());
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  clearInterval(heartbeatTimer); clearInterval(idleCheckTimer);
+  clearInterval(adminSessionsTimer); clearInterval(adminLogsTimer);
+  try { await callApi("logout", { token: Session.token() }); } catch (e) {}
+  Session.clear();
+  location.reload();
+});
+
+/* ==========================================================================
+   ADMIN
+   ========================================================================== */
+let adminSessionsTimer = null, adminLogsTimer = null;
+
+document.getElementById("navToAdmin").addEventListener("click", (e) => {
+  e.preventDefault();
+  showView("admin");
+  document.getElementById("navToAdmin").classList.add("hidden");
+  document.getElementById("navToDashboard").classList.remove("hidden");
+  loadSessions(); loadLogs();
+  clearInterval(adminSessionsTimer); clearInterval(adminLogsTimer);
+  adminSessionsTimer = setInterval(loadSessions, 5000);
+  adminLogsTimer = setInterval(loadLogs, 8000);
+});
+document.getElementById("navToDashboard").addEventListener("click", (e) => {
+  e.preventDefault();
+  clearInterval(adminSessionsTimer); clearInterval(adminLogsTimer);
+  showView("dashboard");
+  document.getElementById("navToDashboard").classList.add("hidden");
+  document.getElementById("navToAdmin").classList.remove("hidden");
+});
+
+async function loadSessions() {
+  try {
+    const res = await callApi("getActiveUsers", { token: Session.token() });
+    renderSessions(res.sessions || []);
+  } catch (err) { handleAuthError(err); }
+}
+async function loadLogs() {
+  try {
+    const res = await callApi("getLogs", { token: Session.token(), limit: 40 });
+    renderLogs(res.logs || []);
+  } catch (err) { handleAuthError(err); }
+}
+function handleAuthError(err) {
+  if (String(err.message).includes("SESSION")) { Session.clear(); location.reload(); }
+  else console.error(err);
+}
+function renderSessions(sessions) {
+  const body = document.getElementById("sessionsBody");
+  if (!sessions.length) { body.innerHTML = `<tr><td colspan="9" style="color: var(--ink-faint);">Немає активних сесій.</td></tr>`; return; }
+  body.innerHTML = sessions.map((s) => `
+      <tr>
+        <td>${escapeHtml(s.login)}</td>
+        <td><span class="tag-role">${escapeHtml(s.role)}</span></td>
+        <td>${escapeHtml(s.ip)}</td>
+        <td>${escapeHtml(s.browser)}</td>
+        <td>${escapeHtml(s.device)}</td>
+        <td>${escapeHtml(s.createdAt)}</td>
+        <td>${escapeHtml(s.lastActivity)}</td>
+        <td><span class="status-pill ${s.online ? "status-online" : "status-offline"}"><span class="status-dot"></span>${s.online ? "Online" : "Offline"}</span></td>
+        <td><button class="btn-danger" data-session-id="${s.sessionId}">Вигнати</button></td>
+      </tr>`).join("");
+  body.querySelectorAll("button[data-session-id]").forEach((btn) => btn.addEventListener("click", () => kickSession(btn.dataset.sessionId, btn)));
+}
+async function kickSession(sessionId, btn) {
+  if (!confirm("Завершити цю сесію?")) return;
+  btn.disabled = true; btn.textContent = "...";
+  try { await callApi("killSession", { token: Session.token(), sessionId }); await loadSessions(); await loadLogs(); }
+  catch (err) { alert("Помилка: " + err.message); btn.disabled = false; btn.textContent = "Вигнати"; }
+}
+function renderLogs(logs) {
+  const body = document.getElementById("logsBody");
+  if (!logs.length) { body.innerHTML = `<tr><td colspan="6" style="color: var(--ink-faint);">Подій ще немає.</td></tr>`; return; }
+  body.innerHTML = logs.map((l) => `
+      <tr>
+        <td>${escapeHtml(l.date)}</td><td>${escapeHtml(l.time)}</td><td>${escapeHtml(l.login)}</td>
+        <td>${escapeHtml(l.description)}</td><td>${escapeHtml(l.ip)}</td><td>${escapeHtml(l.browser)}</td>
+      </tr>`).join("");
+}
+function escapeHtml(str) {
+  if (str === undefined || str === null) return "";
+  return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/* ==========================================================================
+   СТАРТ: перевірка існуючого токена
+   ========================================================================== */
+(async function init() {
+  const token = Session.token();
+  if (!token) { showView("login"); return; }
+  try {
+    const res = await callApi("validateToken", { token });
+    if (res.valid) enterApp();
+    else { Session.clear(); showView("login"); }
+  } catch (e) { Session.clear(); showView("login"); }
+})();
+</script>
 </body>
 </html>
